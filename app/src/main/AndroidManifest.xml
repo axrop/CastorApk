@@ -23,15 +23,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="pe.edu.upc.castor.activities.SigninActivity"
-            android:label="@string/title_signin"
+            android:name="pe.edu.upc.castor.activities.CategoryActivity"
+            android:label="@string/title_categories"
             android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pe.edu.upc.castor.activities.MainActivity" />
         </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.ProductActivity"
+            android:label="@string/title_categories"
+            android:parentActivityName="pe.edu.upc.castor.activities.CategoryActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.CategoryActivity" />
+        </activity>
+
         <activity
             android:name="pe.edu.upc.castor.activities.AccountActivity"
             android:label="@string/title_account"
@@ -50,6 +62,60 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pe.edu.upc.castor.activities.MainActivity" />
         </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.FavoriteActivity"
+            android:label="@string/title_favorites"
+            android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.OrderActivity"
+            android:label="@string/title_orders"
+            android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.ShoppingActivity"
+            android:label="@string/title_shopping"
+            android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.SigninActivity"
+            android:label="@string/title_signin"
+            android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="pe.edu.upc.castor.activities.AboutActivity"
+            android:label="@string/title_about"
+            android:parentActivityName="pe.edu.upc.castor.activities.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pe.edu.upc.castor.activities.MainActivity" />
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

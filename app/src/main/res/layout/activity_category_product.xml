@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/backCategoriesCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        card_view:cardUseCompatPadding="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="2"
+            android:layout_gravity="left"
+            android:padding="@dimen/espacio_norma_1"
+            android:rowCount="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_arrow_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:text="Categories"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/backCategoryCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        card_view:cardUseCompatPadding="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="2"
+            android:layout_gravity="left"
+            android:padding="@dimen/espacio_norma_1"
+            android:rowCount="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_arrow_left" />
+
+            <TextView
+                android:id="@+id/categoryTitleEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_marginTop="5dp"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:text="Category"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/subCategoryTitleEditText"
+        android:text="Sub Category"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:id="@+id/productCategoryListView"
+        android:drawSelectorOnTop="false" />
+
+</LinearLayout>

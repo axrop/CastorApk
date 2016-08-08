@@ -1,5 +1,6 @@
 package pe.edu.upc.castor.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,9 +17,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import pe.edu.upc.castor.R;
 import pe.edu.upc.castor.fragments.FragmentoCategorias;
+import pe.edu.upc.castor.util.Constants;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,8 +31,8 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private FloatingActionButton fab;
 
-    private static final String SHARED_PREF_KEY = "prefs";
-    private static final String PREF_USER_TYPE = "";
+    private TextView profileTextView;
+    private TextView userNameTextView;
 
     // Storage Access Class
     SharedPreferences sharedPreferences;
@@ -56,16 +61,29 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        sharedPreferences = this.getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
-        String userType = sharedPreferences.getString(PREF_USER_TYPE, "vacio");
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_KEY, MODE_PRIVATE);
+        String userType = sharedPreferences.getString(Constants.PREF_USER_TYPE, "");
 
-        if( userType!=null||userType.equals("") ){
+        profileTextView = (TextView)navigationView.getHeaderView(0).findViewById(R.id.profileTextView);
+        userNameTextView = (TextView)navigationView.getHeaderView(0).findViewById(R.id.userNameTextView);
+
+        if( userType!=null&&!userType.equals("") ){
             if( userType.equals("1") ){//vendedor
                 showOptionsSeller(navigationView);
+                profileTextView.setText("Seller");
             }else if( userType.equals("2") ){//cliente
                 showOptionsClient(navigationView);
+                profileTextView.setText("Client");
             }
+
+            String firstName = sharedPreferences.getString(Constants.PREF_USER_FIRSTNAME, "");
+            String lastName = sharedPreferences.getString(Constants.PREF_USER_LASTNAME, "");
+
+            userNameTextView.setText(firstName+" "+lastName);
+
         }else{
+            profileTextView.setText("Public");
+            userNameTextView.setText("");
             showOptionsPublic(navigationView);
         }
 
@@ -80,16 +98,29 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        } else if (id == R.id.nav_sign_in) {
-            startActivity(new Intent(getApplicationContext(), SigninActivity.class));
+        } else if (id == R.id.nav_categories) {
+            startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
         } else if (id == R.id.nav_account) {
             startActivity(new Intent(getApplicationContext(), AccountActivity.class));
+        } else if (id == R.id.nav_favorite) {
+            startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
+        } else if (id == R.id.nav_order) {
+            startActivity(new Intent(getApplicationContext(), OrderActivity.class));
+        } else if (id == R.id.nav_shopping_cart) {
+            startActivity(new Intent(getApplicationContext(), ShoppingActivity.class));
+        } else if (id == R.id.nav_sign_in) {
+            startActivity(new Intent(getApplicationContext(), SigninActivity.class));
         } else if (id == R.id.nav_sign_off) {
-            sharedPreferences = this.getSharedPreferences(SHARED_PREF_KEY, MODE_PRIVATE);
+            sharedPreferences = this.getSharedPreferences(Constants.SHARED_PREF_KEY, MODE_PRIVATE);
             SharedPreferences.Editor e = sharedPreferences.edit();
-            e.remove(PREF_USER_TYPE);
+            e.remove(Constants.PREF_USER_ID);
+            e.remove(Constants.PREF_USER_TYPE);
+            e.remove(Constants.PREF_USER_FIRSTNAME);
+            e.remove(Constants.PREF_USER_LASTNAME);
             e.commit();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        } else if (id == R.id.nav_about) {
+            startActivity(new Intent(getApplicationContext(), AboutActivity.class));
         }
 
         // Setear título actual

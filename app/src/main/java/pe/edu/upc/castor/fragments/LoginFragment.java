@@ -35,21 +35,15 @@ import java.util.Map;
 import pe.edu.upc.castor.R;
 import pe.edu.upc.castor.activities.MainActivity;
 import pe.edu.upc.castor.activities.PasswordActivity;
+import pe.edu.upc.castor.util.Constants;
 
 public class LoginFragment extends Fragment {
 
     private EditText accountEditText;
     private EditText passwordEditText;
     private Button loginButton;
-    private static String LOGIN_URL = "http://192.168.1.110:8081/castor/api/security/";
+
     private static final String INDICE_SECCION = "upc.edu.pe.castor.LoginFragmentTab.extra.INDICE_SECCION";
-
-    private static final String SHARED_PREF_KEY = "prefs";
-    private static final String PREF_USER_TYPE = "";
-    private static final String PREF_USER_FIRSTNAME = "";
-    private static final String PREF_USER_LASTNAME = "";
-    private static final String PREF_USER_ID = "";
-
     // Storage Access Class
     SharedPreferences sharedPreferences;
 
@@ -69,9 +63,6 @@ public class LoginFragment extends Fragment {
 
         accountEditText = (EditText)view.findViewById(R.id.accountEditText);
         passwordEditText = (EditText)view.findViewById(R.id.passwordEditText);
-
-
-
         loginButton = (Button)view.findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,14 +89,22 @@ public class LoginFragment extends Fragment {
                                     System.out.println("NO AUTHORIZED");
                                 } else {
 
-                                    sharedPreferences = getActivity().getSharedPreferences(SHARED_PREF_KEY, Context.MODE_PRIVATE);
+                                    Context context = getActivity();
 
-                                    SharedPreferences.Editor e = sharedPreferences.edit();
-                                    e.putString(PREF_USER_ID, response.get("id").toString());
-                                    e.putString(PREF_USER_FIRSTNAME, response.get("firstName").toString());
-                                    e.putString(PREF_USER_LASTNAME, response.get("lastName").toString());
-                                    e.putString(PREF_USER_TYPE, response.get("profileId").toString());
-                                    e.commit();
+                                    sharedPreferences = context.getSharedPreferences(Constants.SHARED_PREF_KEY, Context.MODE_PRIVATE);
+
+                                    String id = String.valueOf(response.get("id"));
+                                    String firstName = String.valueOf(response.get("firstName"));
+                                    String lastName = String.valueOf(response.get("lastName"));
+                                    String userType = String.valueOf(response.get("profileId"));
+
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                    editor.putString(Constants.PREF_USER_ID, id);
+                                    editor.putString(Constants.PREF_USER_FIRSTNAME, firstName);
+                                    editor.putString(Constants.PREF_USER_LASTNAME, lastName);
+                                    editor.putString(Constants.PREF_USER_TYPE, userType);
+                                    editor.commit();
 
                                     startActivity(new Intent(getContext(), MainActivity.class));
                                 }
@@ -123,7 +122,7 @@ public class LoginFragment extends Fragment {
                     };
 
                     JsonObjectRequest jsonRequest = new JsonObjectRequest(  Request.Method.POST,
-                                                                            LOGIN_URL,
+                                                                            Constants.LOGIN_URL,
                                                                             jsonObject,
                                                                             responseListener,
                                                                             errorListener   );
