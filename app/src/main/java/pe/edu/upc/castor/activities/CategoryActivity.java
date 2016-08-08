@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import pe.edu.upc.castor.R;
-import pe.edu.upc.castor.adapters.AdaptadorCategorias;
+import pe.edu.upc.castor.adapters.ProductAdapter;
 import pe.edu.upc.castor.util.Constants;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -38,15 +38,24 @@ public class CategoryActivity extends AppCompatActivity {
     private String[] subArray = {};
     private String[] subProArray = {};
 
-    private RecyclerView reciclador;
-    private GridLayoutManager layoutManager;
-    private AdaptadorCategorias adaptador;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        this.getCategories(this);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if( bundle!=null ) {
+            String categoryId = bundle.getString("categoryId");
+
+            if (categoryId != null && !categoryId.equals("")) {
+                this.loadProductsByCategory(this, categoryId);
+            } else {
+                this.getCategories(this);
+            }
+        }else {
+            this.getCategories(this);
+        }
     }
 
     private void getCategories(final CategoryActivity categoryActivity) {
@@ -69,19 +78,29 @@ public class CategoryActivity extends AppCompatActivity {
                     }
 
                     ListView listView = (ListView) findViewById(R.id.categoriesListView);
-
                     ArrayAdapter adapter = new ArrayAdapter(categoryActivity, R.layout.activity_listview, array);
-
                     listView.setAdapter(adapter);
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            // When clicked, show a toast with the TextView text
 
                             setContentView(R.layout.activity_sub_category);
                             ((TextView) findViewById(R.id.categoryTitleEditText)).setText(((TextView) view).getText());
 
-                            getSubCategories(categoryActivity, ((TextView) view).getText().toString());
+                            String categoryId = "";
+                            String categoryTitle = "";
+
+                            Iterator it = map.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pair = (Map.Entry)it.next();
+                                if(((TextView) view).getText().toString().equals(pair.getValue())) {
+                                    categoryId = pair.getKey().toString();
+                                    categoryTitle = pair.getValue().toString();
+                                    break;
+                                }
+                            }
+
+                            getSubCategories(categoryActivity, categoryId, categoryTitle);
 
                             /*System.out.println("id: "+id);
                             Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();*/
@@ -103,9 +122,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     }
 
-    private void getSubCategories(final CategoryActivity categoryActivity, final String categoryTitle) {
+    private void getSubCategories(final CategoryActivity categoryActivity, final String categoryId, final String categoryTitle) {
 
-        String categoryParentId = "";
+        /*String categoryParentId = "";
 
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
@@ -113,13 +132,13 @@ public class CategoryActivity extends AppCompatActivity {
             if(categoryTitle.equals(pair.getValue())){
                 categoryParentId = pair.getKey().toString();
             }
-            /*System.out.println(pair.getKey() + " = " + pair.getValue());*/
-        }
+            *//*System.out.println(pair.getKey() + " = " + pair.getValue());*//*
+        }*/
 
-        if( !categoryParentId.equals("") ) {
+        if( !categoryId.equals("") ) {
 
             JsonArrayRequest jsonRequest = new JsonArrayRequest(
-                    Request.Method.GET, Constants.SUB_CATEGORY_URL + categoryParentId, null, new Response.Listener<JSONArray>() {
+                    Request.Method.GET, Constants.SUB_CATEGORY_URL + categoryId, null, new Response.Listener<JSONArray>() {
 
                 @Override
                 public void onResponse(JSONArray response) {
@@ -136,11 +155,8 @@ public class CategoryActivity extends AppCompatActivity {
                         }
 
                         ListView listView = (ListView) findViewById(R.id.subCategoriesListView);
-
                         ArrayAdapter adapter = new ArrayAdapter(categoryActivity, R.layout.activity_listview, subArray);
-
                         listView.setAdapter(adapter);
-
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -158,21 +174,9 @@ public class CategoryActivity extends AppCompatActivity {
                                 }
 
                                 setContentView(R.layout.activity_category_product);
-
                                 ((TextView)findViewById(R.id.categoryTitleEditText)).setText(categoryTitle);
                                 ((TextView)findViewById(R.id.subCategoryTitleEditText)).setText(subCategoryTitle);
-
-
                                 loadProductsByCategory(categoryActivity, subCategoryId);
-
-                                /*Bundle bundle = new Bundle();
-                                bundle.putString("categoryId", categoryParentId);
-
-                                Intent intent = new Intent();
-                                intent.setClass(CategoryActivity.this, ProductActivity.class);
-                                intent.putExtras(bundle);
-                                startActivity(intent);*/
-
 
                             }
                         });
@@ -193,12 +197,12 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
 
-    private void loadProductsByCategory(final CategoryActivity categoryActivity, String subCategoryId){
+    private void loadProductsByCategory(final CategoryActivity categoryActivity, String categoryId){
 
-        if( !subCategoryId.equals("") ) {
+        if( !categoryId.equals("") ) {
 
             JsonArrayRequest jsonRequest = new JsonArrayRequest(
-                    Request.Method.GET, Constants.CATEGORY_PRODUCT_URL + subCategoryId, null, new Response.Listener<JSONArray>() {
+                    Request.Method.GET, Constants.CATEGORY_PRODUCT_URL + categoryId, null, new Response.Listener<JSONArray>() {
 
                 @Override
                 public void onResponse(JSONArray response) {

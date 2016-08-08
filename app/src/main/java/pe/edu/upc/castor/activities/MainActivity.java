@@ -1,14 +1,12 @@
 package pe.edu.upc.castor.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.Menu;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import pe.edu.upc.castor.R;
-import pe.edu.upc.castor.fragments.FragmentoCategorias;
+import pe.edu.upc.castor.adapters.ProductAdapter;
+import pe.edu.upc.castor.models.Product;
 import pe.edu.upc.castor.util.Constants;
 
 public class MainActivity extends AppCompatActivity
@@ -37,10 +34,22 @@ public class MainActivity extends AppCompatActivity
     // Storage Access Class
     SharedPreferences sharedPreferences;
 
+    private RecyclerView reciclador;
+    private GridLayoutManager layoutManager;
+    private ProductAdapter adaptador;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        reciclador = (RecyclerView)findViewById(R.id.reciclador);
+        layoutManager = new GridLayoutManager(this, 2);
+        reciclador.setLayoutManager(layoutManager);
+        adaptador = new ProductAdapter(Product.PLATILLOS);
+        reciclador.setAdapter(adaptador);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

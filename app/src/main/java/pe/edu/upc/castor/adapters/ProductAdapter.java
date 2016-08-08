@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import pe.edu.upc.castor.R;
-import pe.edu.upc.castor.models.Comida;
 import pe.edu.upc.castor.models.Product;
 
 /**
@@ -52,7 +51,7 @@ public class ProductAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_lista_categorias, viewGroup, false);
+                .inflate(R.layout.item_list_offers, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -60,12 +59,12 @@ public class ProductAdapter
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Product item = items.get(i);
 
-        /*Glide.with(viewHolder.itemView.getContext())
+        Glide.with(viewHolder.itemView.getContext())
                 .load(item.getIdDrawable())
                 .centerCrop()
                 .into(viewHolder.imagen);
         viewHolder.nombre.setText(item.getNombre());
-        viewHolder.precio.setText("$" + item.getPrecio());*/
+        viewHolder.precio.setText("$" + item.getPrecio());
 
     }
 

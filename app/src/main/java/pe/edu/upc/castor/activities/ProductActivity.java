@@ -1,7 +1,10 @@
 package pe.edu.upc.castor.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -26,6 +29,9 @@ public class ProductActivity extends AppCompatActivity {
     TextView formatTextView;
     TextView thicknessTextView;
 
+    CardView addShoppingCardView;
+    CardView similarProductCardView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +46,42 @@ public class ProductActivity extends AppCompatActivity {
         thicknessTextView = (TextView)findViewById(R.id.thicknessTextView);
 
         Bundle bundle = getIntent().getExtras();
-        String productId = bundle.getString("productId");
+        final String categoryId = bundle.getString("categoryId");
+        final String productId = bundle.getString("productId");
 
         loadProductsCategory(productId);
+
+        addShoppingCardView = (CardView)findViewById(R.id.addShoppingCardView);
+        addShoppingCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("productId", productId);
+
+                Intent intent = new Intent();
+                intent.setClass(ProductActivity.this, ShoppingActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                //startActivity(new Intent(getApplicationContext(), PasswordActivity.class));
+            }
+        });
+
+        similarProductCardView = (CardView)findViewById(R.id.similarProductCardView);
+        similarProductCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryId", categoryId);
+
+                Intent intent = new Intent();
+                intent.setClass(ProductActivity.this, CategoryActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                //startActivity(new Intent(getApplicationContext(), PasswordActivity.class));
+            }
+        });
+
+
 
     }
 
