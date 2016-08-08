@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import pe.edu.upc.castor.R;
 
 public class RegisterFragment extends Fragment{
 
-    private static final String INDICE_SECCION
-            = "upc.edu.pe.castor.LoginFragmentTab.extra.INDICE_SECCION";
+    private static final String INDICE_SECCION = "upc.edu.pe.castor.LoginFragmentTab.extra.INDICE_SECCION";
+    private Button registerButton;
 
     public static RegisterFragment nuevaInstancia(int indiceSeccion) {
         RegisterFragment fragment = new RegisterFragment();
@@ -36,12 +37,14 @@ public class RegisterFragment extends Fragment{
         list.add("DNI");
         list.add("CE");
 
-        Spinner s = (Spinner) rootView.findViewById(R.id.DocumentTypeSpinner);
+        Spinner s = (Spinner) rootView.findViewById(R.id.documentTypeSpinner);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(dataAdapter);
 
-        return rootView;//inflater.inflate(R.layout.fragment_register, container, false);
+        registerButton = (Button)rootView.findViewById(R.id.RegisterButton);
+
+        return rootView;
     }
 
 }

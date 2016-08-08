@@ -27,7 +27,7 @@
             android:rowCount="2">
 
             <ImageView
-                android:id="@+id/EmailImageView"
+                android:id="@+id/emailImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -43,12 +43,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Email"
-                    android:id="@+id/EmailEditText"
+                    android:id="@+id/emailEditText"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView
-                android:id="@+id/UserImageView"
+                android:id="@+id/userImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="First name"
-                    android:id="@+id/FirstNameEditText"
+                    android:id="@+id/firstNameEditText"
                     android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -85,13 +85,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Last name"
-                        android:id="@+id/LastNameEditText"
+                        android:id="@+id/lastNameEditText"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
             </GridLayout>
 
             <ImageView
-                android:id="@+id/PhoneImageView"
+                android:id="@+id/phoneImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -107,12 +107,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Phone number"
-                    android:id="@+id/PhoneEditText"
+                    android:id="@+id/phoneEditText"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageView
-                android:id="@+id/DocumentImageView"
+                android:id="@+id/documentImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -131,10 +131,10 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/documentTypeWrapper"
                     android:layout_width="match_parent"
-                    android:layout_below="@id/PhoneEditText"
+                    android:layout_below="@id/phoneEditText"
                     android:layout_height="wrap_content">
                     <Spinner
-                        android:id="@+id/DocumentTypeSpinner"
+                        android:id="@+id/documentTypeSpinner"
                         style="@style/Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Document ID"
-                        android:id="@+id/DocumentEditText"
+                        android:id="@+id/documentEditText"
                         android:singleLine="true"
                         android:layout_row="2"
                         android:layout_column="0" />
@@ -167,7 +167,7 @@
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:text="REGISTER"
-            android:id="@+id/RegisterButton"
+            android:id="@+id/registerButton"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorAccent" />
 
